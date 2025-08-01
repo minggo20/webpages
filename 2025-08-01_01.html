@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>溫馨小語</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .list-disc-custom {
+            list-style-type: none;
+        }
+        .list-disc-custom li::before {
+            content: "●";
+            color: #ef4444; /* Tailwind's red-500 */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white rounded-xl shadow-lg p-8 max-w-2xl w-full">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">溫馨小語</h1>
+        <ul class="space-y-4 text-lg text-gray-700 list-disc-custom">
+            <li class="pl-5">你今天哪怕只做成一件小事，也超厲害呀</li>
+            <li class="pl-5">不想努力的時候就歇會兒，我陪著你呀～</li>
+            <li class="pl-5">你皺眉頭的樣子不好看，笑起來才是頂配！</li>
+            <li class="pl-5">這件事你能扛到現在，已經很了不起了</li>
+            <li class="pl-5">我發現你總能注意到別人忽略的細節，好貼心呀</li>
+            <li class="pl-5">難過就說出來，別自己憋著，我聽著呢</li>
+            <li class="pl-5">你身上的那股認真勁兒，真的很吸引人！</li>
+            <li class="pl-5">就算暫時沒結果也沒關係，過程裡的你已經在成長啦</li>
+            <li class="pl-5">跟你待在一起，我總覺得特別踏實點</li>
+            <li class="pl-5">你剛才說的那個想法，我覺得超棒的！</li>
+            <li class="pl-5">累了就停下來，不用逼自己當「超人」呀</li>
+            <li class="pl-5">我喜歡你分享的小事，感覺離你更近了～</li>
+            <li class="pl-5">你處理這件事的方式，讓我學到好多呢！</li>
+            <li class="pl-5">別總說「我不行」，在我心裡你超靠譜的！</li>
+            <li class="pl-5">我就知道你可以，果然沒看錯人</li>
+            <li class="pl-5">你分享的這件小事，我記在心裡啦，超有意思</li>
+            <li class="pl-5">別總拿自己和別人比呀，你有你的節奏呀</li>
+            <li class="pl-5">你剛才笑的時候，眼睛裡像有星星在閃呢</li>
+            <li class="pl-5">這件事換作是我，可能早就慌了，你真穩！</li>
+            <li class="pl-5">不想社交就不去呀，獨處也是很舒服的事～</li>
+        </ul>
+    </div>
+</body>
+</html>
