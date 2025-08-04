@@ -1,1 +1,51 @@
-
+/**
+ * 示範如何在 Google Apps Script 中使用字串、數字和布林變數。
+ */
+function variableExamples() {
+  
+  // 1. 字串 (String)
+  // 字串用單引號 ('...') 或雙引號 ("...") 包起來。
+  let greeting = "Hello, Google Apps Script!";
+  let name = '小明';
+  
+  Logger.log('--- 字串範例 ---');
+  Logger.log('問候語: ' + greeting);
+  Logger.log('使用者名稱: ' + name);
+  
+  // 你也可以將兩個字串串接在一起
+  let fullMessage = greeting + ' 我是 ' + name + '。';
+  Logger.log('完整訊息: ' + fullMessage);
+  
+  // ---
+  
+  // 2. 數字 (Number)
+  // 數字可以是整數或浮點數（帶有小數點）。
+  let a = 10;
+  let b = 5.5;
+  let sum = a + b;
+  let product = a * b;
+  
+  Logger.log('\n--- 數字範例 ---');
+  Logger.log('變數 a: ' + a);
+  Logger.log('變數 b: ' + b);
+  Logger.log('a 加 b 的總和: ' + sum);
+  Logger.log('a 乘 b 的乘積: ' + product);
+  
+  // ---
+  
+  // 3. 布林變數 (Boolean)
+  // 布林變數只有兩種值: true（真）或 false（假）。
+  let isLoggedOn = true;
+  let isAdult = false;
+  
+  Logger.log('\n--- 布林變數範例 ---');
+  Logger.log('是否已登入: ' + isLoggedOn);
+  Logger.log('是否為成人: ' + isAdult);
+  
+  // 布林變數常用於條件判斷
+  if (isLoggedOn) {
+    Logger.log('狀態: 使用者已登入。');
+  } else {
+    Logger.log('狀態: 使用者未登入。');
+  }
+}
