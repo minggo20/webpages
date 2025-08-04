@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>辦公室潛規則指南</title>
+    <!-- Chosen Palette: Calm Indigo & Slate -->
+    <!-- Application Structure Plan: The application uses a tab-based navigation structure. Three main categories are presented as interactive buttons. Clicking a button reveals the set of rules associated with that category while hiding the others. This thematic segmentation prevents information overload and allows users to focus on specific areas of interest. This structure was chosen because the source report is already thematically categorized, and a tabbed interface is the most intuitive way to represent and navigate such segmented content, enhancing usability over a simple, long scrollable list. -->
+    <!-- Visualization & Content Choices: Report Info: The source is a list of qualitative office rules. Goal: Organize and inform in an interactive way. Viz/Presentation Method: The core structure uses HTML buttons for navigation and styled `div` cards for displaying each rule. Unicode characters are used as simple, lightweight icons for each category. Interaction: Vanilla JavaScript manages the tab-switching logic. Clicking a category button updates the display to show only the relevant rule cards. Justification: This approach transforms a static text document into a small, engaging web application. The card layout improves readability for each rule, and the tab interaction provides a clear, user-controlled path through the content, which is superior for learning and retention. Library/Method: Vanilla JS for interactions, Tailwind CSS for styling. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .nav-btn {
+            transition: all 0.3s ease-in-out;
+        }
+        .nav-btn.active {
+            background-color: #4f46e5;
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39);
+        }
+        .content-panel {
+            display: none;
+        }
+        .content-panel.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+
+    <main class="w-full max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-6 md:p-10">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-800">辦公室潛規則指南</h1>
+            <p class="mt-3 text-lg text-slate-500">探索職場中的生存智慧，讓你游刃有餘。</p>
+        </header>
+
+        <nav id="category-nav" class="flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4 mb-10">
+            <button data-target="panel-1" class="nav-btn active w-full sm:w-auto text-base font-semibold py-3 px-6 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300">
+                🤝 人際關係與形象管理
+            </button>
+            <button data-target="panel-2" class="nav-btn w-full sm:w-auto text-base font-semibold py-3 px-6 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300">
+                💬 溝通與情緒管理
+            </button>
+            <button data-target="panel-3" class="nav-btn w-full sm:w-auto text-base font-semibold py-3 px-6 rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300">
+                🛡️ 職場生存與應對策略
+            </button>
+        </nav>
+
+        <div id="content-container">
+            <!-- Panel 1: 人際關係與形象管理 -->
+            <div id="panel-1" class="content-panel active">
+                <div class="mb-6 pb-4 border-b border-slate-200">
+                     <h2 class="text-2xl font-bold text-indigo-600">人際關係與形象管理</h2>
+                     <p class="mt-1 text-slate-600">這組規則專注於如何在職場中建立良好的人際關係、維護個人形象，以及處理與同事之間的微妙界線。</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-indigo-400">
+                        <p class="text-slate-800"><strong class="text-indigo-600">規則 1：</strong>如果你想人緣好，永遠不要讓別人感覺你有多精明，一定要讓人感覺你很實在、很單純，這樣別人才會願意接近你。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-indigo-400">
+                        <p class="text-slate-800"><strong class="text-indigo-600">規則 2：</strong>單位中的同事大概率不會成為你真正的朋友，因為大部分人往往將利益放在朋友之前。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-indigo-400">
+                        <p class="text-slate-800"><strong class="text-indigo-600">規則 6：</strong>在單位中不要跟某個人、某些人特別好，太過密切的接觸往往很快會產生矛盾，而且關係親密的人之間的矛盾往往會發酵得非常嚴重。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-indigo-400">
+                        <p class="text-slate-800"><strong class="text-indigo-600">規則 12：</strong>不要輕易在任何人、任何場合面前說另一個人好也不要輕易說不好，即使必須要說，也要論事。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 2: 溝通與情緒管理 -->
+            <div id="panel-2" class="content-panel">
+                <div class="mb-6 pb-4 border-b border-slate-200">
+                     <h2 class="text-2xl font-bold text-emerald-600">溝通與情緒管理</h2>
+                     <p class="mt-1 text-slate-600">這些規則涵蓋了在不同情境下的溝通技巧，以及如何有效控制個人情緒，避免不必要的衝突。</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-emerald-400">
+                        <p class="text-slate-800"><strong class="text-emerald-600">規則 3：</strong>制怒是一個人成熟的重要標志。即使你下一秒想要給對方一拳，上一秒你也要面帶微笑，至少可以讓他放鬆警惕。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-emerald-400">
+                        <p class="text-slate-800"><strong class="text-emerald-600">規則 4：</strong>群體場合少說話、保持微笑，如果你人微言輕，不說話是最好的表達方式，如果說話，一定要少說「我的事」而多言「你怎麼樣」。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-emerald-400">
+                        <p class="text-slate-800"><strong class="text-emerald-600">規則 7：</strong>別不好意思拒絕別人，別人都好意思為難你。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-emerald-400">
+                        <p class="text-slate-800"><strong class="text-emerald-600">規則 11：</strong>不要與你的直屬上級發生直接衝突。如果確實有矛盾，在私下裡找他談，開門見山。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 3: 職場生存與應對策略 -->
+            <div id="panel-3" class="content-panel">
+                 <div class="mb-6 pb-4 border-b border-slate-200">
+                     <h2 class="text-2xl font-bold text-amber-600">職場生存與應對策略</h2>
+                     <p class="mt-1 text-slate-600">此類規則提供了更具策略性的職場生存之道，教你如何應對挑戰、建立支持系統，並在關鍵時刻保護自己。</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-amber-400">
+                        <p class="text-slate-800"><strong class="text-amber-600">規則 5：</strong>與那些對你有恩的、重要的人交往，一定要細水長流，細水是指不要太頻、太殷勤，長流是指一年中至少要打點兩次、小聚兩次。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-amber-400">
+                        <p class="text-slate-800"><strong class="text-amber-600">規則 8：</strong>單位不是黑社會，不要一根筋抱住某根大腿、某個關係不放，一定要有自己的圈子，特別是當這根大腿不夠粗的時候。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-amber-400">
+                        <p class="text-slate-800"><strong class="text-amber-600">規則 9：</strong>當你被某人欺負得確實忍無可忍時，要學會用制度去懲罰他。不要對對方表露出厭惡，要以平常心待之，然後注意記錄其平常的言行。敲重點：包括但不限於到崗離崗時間、著裝、言行等等，只要你細心觀察，總會發現問題的。一旦你攢夠了五條以上的違規，你就可以把小冊子給上級領導了。很多時候，你的這種舉動是讓對方重新成為一個老實人的必要步驟。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-lg border-l-4 border-amber-400">
+                        <p class="text-slate-800"><strong class="text-amber-600">規則 10：</strong>內部同事的酒局能推就推，多半是沒有任何意義純粹吹牛大會。酒桌上有兩個（含）以上的外人第一次喝酒，要喝平常酒量的二分之一。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const nav = document.getElementById('category-nav');
+        const panels = document.querySelectorAll('.content-panel');
+        const navButtons = document.querySelectorAll('.nav-btn');
+
+        nav.addEventListener('click', (e) => {
+            const targetButton = e.target.closest('button');
+            if (!targetButton) return;
+
+            const targetPanelId = targetButton.dataset.target;
+            
+            navButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            targetButton.classList.add('active');
+
+            panels.forEach(panel => {
+                if (panel.id === targetPanelId) {
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
