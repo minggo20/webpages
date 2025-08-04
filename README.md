@@ -10,3 +10,5 @@ https://minggo20.github.io/webpages/2025-08-01_02.html
 https://minggo20.github.io/webpages/2025-08-04_01.html
 ### 辦公室潛規則指南
 https://minggo20.github.io/webpages/2025-08-04_02.html
+### 
+https://minggo20.github.io/webpages/2025-08-04_03.html
