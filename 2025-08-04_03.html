@@ -8,14 +8,56 @@
         body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f4f7f9; }
         .container { max-width: 800px; margin: auto; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
         h1 { text-align: center; color: #1a1a1a; font-size: 2.5em; margin-bottom: 0.5em; border-bottom: 3px solid #e2e2e2; padding-bottom: 10px; }
-        h2 { color: #0056b3; font-size: 1.8em; margin-top: 2em; border-bottom: 2px solid #ddd; padding-bottom: 5px; }
-        h3 { color: #d9534f; font-size: 1.3em; margin-top: 1.5em; }
-        p { margin: 1em 0; color: #555; }
+        .quote { font-style: italic; color: #777; margin: 20px 0; padding-left: 20px; border-left: 4px solid #ccc; }
+        
+        /* Interactive Section Styling */
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: #0056b3;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin-top: 2em;
+            transition: background-color 0.3s;
+        }
+        .category-header:hover { background-color: #004494; }
+        .category-header h2 {
+            margin: 0;
+            color: #fff;
+            font-size: 1.8em;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .toggle-icon {
+            font-size: 2em;
+            font-weight: bold;
+            line-height: 1;
+            transition: transform 0.3s;
+        }
+        .toggle-icon.open { transform: rotate(45deg); }
+        .category-content {
+            display: none;
+            padding: 10px 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+            max-height: 0;
+        }
+        .category-content.show {
+            max-height: 2000px; /* A large value to allow for smooth animation */
+        }
+
+        /* Principle List Styling */
         ul { list-style-type: none; padding-left: 0; }
         ul li { background: #e9f5ff; margin-bottom: 15px; padding: 20px; border-radius: 8px; border-left: 5px solid #007bff; transition: transform 0.2s; }
         ul li:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h3 { color: #d9534f; font-size: 1.3em; margin-top: 0; }
+        p { margin: 1em 0; color: #555; }
         strong { color: #d9534f; font-weight: bold; }
-        .quote { font-style: italic; color: #777; margin: 20px 0; padding-left: 20px; border-left: 4px solid #ccc; }
+        
+        /* Footer and Source */
         .source { font-size: 0.9em; color: #999; text-align: right; margin-top: 30px; }
         .source a { color: #007bff; text-decoration: none; }
         .source a:hover { text-decoration: underline; }
@@ -28,85 +70,105 @@
     <h1>人際交往智慧：守護自我，不受拿捏</h1>
     <p class="quote">在複雜的人際關係中，真正的保護，不是一味退讓，而是懂得如何堅守自我。當你越有原則、越有底線，別人就越不敢輕舉妄動。</p>
 
-    <h2>一、心理建設：建立不可動搖的自我核心</h2>
-    <ul>
-        <li>
-            <h3>1. 不卑不亢，堅守底氣</h3>
-            <p>只要你不欠對方的，就不必卑躬屈膝。**心裡有底氣，才是做人做事最好的姿態**。別怕得罪人，當你沒錯，就無需討好。</p>
-        </li>
-        <li>
-            <h3>2. 無欲則剛，藏好需求感</h3>
-            <p>只要你在別人那裡有所求，主動權就不在你手裡。**藏好自己的需求感**，不輕易暴露想法，才不容易被人牽著鼻子走。</p>
-        </li>
-        <li>
-            <h3>3. 鬥爭力是贏得尊重的關鍵</h3>
-            <p>搞好人際關係的關鍵，不在於一味忍讓，而是**有鬥爭力**。在必要時敢於正面硬剛，讓別人意識到挑釁你的成本很高，自然會給你應有的尊重。</p>
-        </li>
-        <li>
-            <h3>4. 拒絕做「好好先生」</h3>
-            <p>如果你沒背景、沒靠山，又選擇做個「好好先生」，你的優點很可能變成被人利用和打壓的劣勢。**認清現實，學會為自己而戰**。</p>
-        </li>
-    </ul>
+    <div class="category-header" onclick="toggleCategory('category1')">
+        <h2>一、心理建設：建立不可動搖的自我核心</h2>
+        <span class="toggle-icon">+</span>
+    </div>
+    <div id="category1" class="category-content">
+        <ul>
+            <li>
+                <h3>1. 不卑不亢，堅守底氣</h3>
+                <p>只要你不欠對方的，就不必卑躬屈膝。**心裡有底氣，才是做人做事最好的姿態**。別怕得罪人，當你沒錯，就無需討好。</p>
+            </li>
+            <li>
+                <h3>2. 無欲則剛，藏好需求感</h3>
+                <p>只要你在別人那裡有所求，主動權就不在你手裡。**藏好自己的需求感**，不輕易暴露想法，才不容易被人牽著鼻子走。</p>
+            </li>
+            <li>
+                <h3>3. 鬥爭力是贏得尊重的關鍵</h3>
+                <p>搞好人際關係的關鍵，不在於一味忍讓，而是**有鬥爭力**。在必要時敢於正面硬剛，讓別人意識到挑釁你的成本很高，自然會給你應有的尊重。</p>
+            </li>
+            <li>
+                <h3>4. 拒絕做「好好先生」</h3>
+                <p>如果你沒背景、沒靠山，又選擇做個「好好先生」，你的優點很可能變成被人利用和打壓的劣勢。**認清現實，學會為自己而戰**。</p>
+            </li>
+        </ul>
+    </div>
 
-    <h2>二、應對策略：聰明地與人交往</h2>
-    <ul>
-        <li>
-            <h3>5. 付出要有代價，拒絕免費</h3>
-            <p>免費的東西最不被珍惜。你給得太輕易，別人只會習以為常。**所有的付出，都該讓對方付出相應的代價**，讓他們明白你的好不是理所當然。</p>
-        </li>
-        <li>
-            <h3>6. 在有理時，敢於把事情鬧大</h3>
-            <p>面對欺負或添亂，一味忍讓只會讓對方得寸進尺。必要時，要**敢於把事情鬧到對方不得不低頭道歉為止**，將矛盾擺到明面上解決。</p>
-        </li>
-        <li>
-            <h3>7. 面對欺負，別講道理</h3>
-            <p>對那些拿你當軟柿子捏的人，講道理是行不通的。最直接的方式，就是讓他們**嘗到欺負你的代價**，硬碰硬反而能贏得尊重。</p>
-        </li>
-        <li>
-            <h3>8. 保留後路，懂得留一手</h3>
-            <p>無論在哪個行業，都不要手把手教會那些隨時能頂替你的人。再無私，也要學會**保留後路，懂得留一手**，別讓自己隨時被取代。</p>
-        </li>
-    </ul>
+    <div class="category-header" onclick="toggleCategory('category2')">
+        <h2>二、應對策略：聰明地與人交往</h2>
+        <span class="toggle-icon">+</span>
+    </div>
+    <div id="category2" class="category-content">
+        <ul>
+            <li>
+                <h3>5. 付出要有代價，拒絕免費</h3>
+                <p>免費的東西最不被珍惜。你給得太輕易，別人只會習以為常。**所有的付出，都該讓對方付出相應的代價**，讓他們明白你的好不是理所當然。</p>
+            </li>
+            <li>
+                <h3>6. 在有理時，敢於把事情鬧大</h3>
+                <p>面對欺負或添亂，一味忍讓只會讓對方得寸進尺。必要時，要**敢於把事情鬧到對方不得不低頭道歉為止**，將矛盾擺到明面上解決。</p>
+            </li>
+            <li>
+                <h3>7. 面對欺負，別講道理</h3>
+                <p>對那些拿你當軟柿子捏的人，講道理是行不通的。最直接的方式，就是讓他們**嘗到欺負你的代價**，硬碰硬反而能贏得尊重。</p>
+            </li>
+            <li>
+                <h3>8. 保留後路，懂得留一手</h3>
+                <p>無論在哪個行業，都不要手把手教會那些隨時能頂替你的人。再無私，也要學會**保留後路，懂得留一手**，別讓自己隨時被取代。</p>
+            </li>
+        </ul>
+    </div>
 
-    <h2>三、識人辨心：保持距離與警惕</h2>
-    <ul>
-        <li>
-            <h3>9. 屏蔽無用信息，專注核心</h3>
-            <p>一定要有強大的**屏蔽能力**。學會過濾掉別人的閒言碎語、無用八卦，把注意力放在最值得投入的人和事上。</p>
-        </li>
-        <li>
-            <h3>10. 警惕突如其來的熱情</h3>
-            <p>突然對你噓寒問暖的人，要格外小心。**事出反常必有妖**，過分熱情的舉動往往暗藏陷阱，值得多留個心眼。</p>
-        </li>
-        <li>
-            <h3>11. 遠離複雜、八面玲瓏的人</h3>
-            <p>和那些看不透、嘴巴甜、八面玲瓏的人，保持距離。他們表面人緣好，實則最擅長背後算計。**別被表面的和氣迷惑**。</p>
-        </li>
-        <li>
-            <h3>12. 人緣好不等於人品好</h3>
-            <p>人緣好的人，往往擅長投其所好、拉幫結派。他們交際圈大，但不一定值得深交。**學會區分人緣與人品**。</p>
-        </li>
-    </ul>
+    <div class="category-header" onclick="toggleCategory('category3')">
+        <h2>三、識人辨心：保持距離與警惕</h2>
+        <span class="toggle-icon">+</span>
+    </div>
+    <div id="category3" class="category-content">
+        <ul>
+            <li>
+                <h3>9. 屏蔽無用信息，專注核心</h3>
+                <p>一定要有強大的**屏蔽能力**。學會過濾掉別人的閒言碎語、無用八卦，把注意力放在最值得投入的人和事上。</p>
+            </li>
+            <li>
+                <h3>10. 警惕突如其來的熱情</h3>
+                <p>突然對你噓寒問暖的人，要格外小心。**事出反常必有妖**，過分熱情的舉動往往暗藏陷阱，值得多留個心眼。</p>
+            </li>
+            <li>
+                <h3>11. 遠離複雜、八面玲瓏的人</h3>
+                <p>和那些看不透、嘴巴甜、八面玲瓏的人，保持距離。他們表面人緣好，實則最擅長背後算計。**別被表面的和氣迷惑**。</p>
+            </li>
+            <li>
+                <h3>12. 人緣好不等於人品好</h3>
+                <p>人緣好的人，往往擅長投其所好、拉幫結派。他們交際圈大，但不一定值得深交。**學會區分人緣與人品**。</p>
+            </li>
+        </ul>
+    </div>
 
-    <h2>四、界限管理：保護自我空間</h2>
-    <ul>
-        <li>
-            <h3>13. 遠離已得罪過的人</h3>
-            <p>成年人的世界沒有那麼多「一笑泯恩仇」。一旦結下矛盾，最好**敬而遠之**。有些人只是在等機會反撲，別天真地以為道歉就能解決一切。</p>
-        </li>
-        <li>
-            <h3>14. 懂得放手，不糾纏</h3>
-            <p>主動疏遠你的人，就讓他遠離。**強留住的，往往是卑微和廉價**。離開的，就讓他走，別糾纏。</p>
-        </li>
-        <li>
-            <h3>15. 幫忙做分析，不輕易下結論</h3>
-            <p>當別人請教意見時，最多幫忙做分析，**別輕易下結論**。凡事留點餘地，避免讓自己背上責任或被人利用。</p>
-        </li>
-        <li>
-            <h3>16. 財不外露，保護自我</h3>
-            <p>千萬別隨意告訴別人你的經濟狀況。**財不外露，是最安全的生存法則**。讓人猜不透你，反而能避免麻煩和嫉妒。</p>
-        </li>
-    </ul>
+    <div class="category-header" onclick="toggleCategory('category4')">
+        <h2>四、界限管理：保護自我空間</h2>
+        <span class="toggle-icon">+</span>
+    </div>
+    <div id="category4" class="category-content">
+        <ul>
+            <li>
+                <h3>13. 遠離已得罪過的人</h3>
+                <p>成年人的世界沒有那麼多「一笑泯恩仇」。一旦結下矛盾，最好**敬而遠之**。有些人只是在等機會反撲，別天真地以為道歉就能解決一切。</p>
+            </li>
+            <li>
+                <h3>14. 懂得放手，不糾纏</h3>
+                <p>主動疏遠你的人，就讓他遠離。**強留住的，往往是卑微和廉價**。離開的，就讓他走，別糾纏。</p>
+            </li>
+            <li>
+                <h3>15. 幫忙做分析，不輕易下結論</h3>
+                <p>當別人請教意見時，最多幫忙做分析，**別輕易下結論**。凡事留點餘地，避免讓自己背上責任或被人利用。</p>
+            </li>
+            <li>
+                <h3>16. 財不外露，保護自我</h3>
+                <p>千萬別隨意告訴別人你的經濟狀況。**財不外露，是最安全的生存法則**。讓人猜不透你，反而能避免麻煩和嫉妒。</p>
+            </li>
+        </ul>
+    </div>
 
     <p class="source">資料來源：<a href="https://www.facebook.com/share/p/1E3oQys6iG/" target="_blank">Facebook 貼文連結</a></p>
 
@@ -114,6 +176,36 @@
         <p>&copy; 2025 智慧人生。所有版權保留。</p>
     </div>
 </div>
+
+<script>
+    function toggleCategory(categoryId) {
+        const content = document.getElementById(categoryId);
+        const icon = content.previousElementSibling.querySelector('.toggle-icon');
+        
+        if (content.classList.contains('show')) {
+            content.classList.remove('show');
+            icon.classList.remove('open');
+        } else {
+            // Close all other open categories
+            const allContents = document.querySelectorAll('.category-content');
+            const allIcons = document.querySelectorAll('.toggle-icon');
+            allContents.forEach(item => {
+                if (item.id !== categoryId) {
+                    item.classList.remove('show');
+                }
+            });
+            allIcons.forEach(item => {
+                if (item !== icon) {
+                    item.classList.remove('open');
+                }
+            });
+
+            // Open the clicked category
+            content.classList.add('show');
+            icon.classList.add('open');
+        }
+    }
+</script>
 
 </body>
 </html>
