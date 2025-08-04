@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>人際交往智慧：守護自我，不受拿捏</title>
     <style>
+        /* 基本頁面和排版樣式 */
         body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f4f7f9; }
         .container { max-width: 800px; margin: auto; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
         h1 { text-align: center; color: #1a1a1a; font-size: 2.5em; margin-bottom: 0.5em; border-bottom: 3px solid #e2e2e2; padding-bottom: 10px; }
         .quote { font-style: italic; color: #777; margin: 20px 0; padding-left: 20px; border-left: 4px solid #ccc; }
         
-        /* Interactive Section Styling */
+        /* 互動式分類標題樣式 */
         .category-header {
             display: flex;
             justify-content: space-between;
@@ -31,6 +32,8 @@
             border-bottom: none;
             padding-bottom: 0;
         }
+
+        /* 展開/收合圖示樣式 */
         .toggle-icon {
             font-size: 2em;
             font-weight: bold;
@@ -38,6 +41,8 @@
             transition: transform 0.3s;
         }
         .toggle-icon.open { transform: rotate(45deg); }
+
+        /* 分類內容收合與展開動畫 */
         .category-content {
             display: none;
             padding: 10px 0;
@@ -46,10 +51,11 @@
             max-height: 0;
         }
         .category-content.show {
-            max-height: 2000px; /* A large value to allow for smooth animation */
+            display: block;
+            max-height: 2000px; /* 設定足夠大的數值以確保平滑展開 */
         }
 
-        /* Principle List Styling */
+        /* 內文原則列表樣式 */
         ul { list-style-type: none; padding-left: 0; }
         ul li { background: #e9f5ff; margin-bottom: 15px; padding: 20px; border-radius: 8px; border-left: 5px solid #007bff; transition: transform 0.2s; }
         ul li:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -57,7 +63,7 @@
         p { margin: 1em 0; color: #555; }
         strong { color: #d9534f; font-weight: bold; }
         
-        /* Footer and Source */
+        /* 頁尾和資料來源樣式 */
         .source { font-size: 0.9em; color: #999; text-align: right; margin-top: 30px; }
         .source a { color: #007bff; text-decoration: none; }
         .source a:hover { text-decoration: underline; }
@@ -70,6 +76,7 @@
     <h1>人際交往智慧：守護自我，不受拿捏</h1>
     <p class="quote">在複雜的人際關係中，真正的保護，不是一味退讓，而是懂得如何堅守自我。當你越有原則、越有底線，別人就越不敢輕舉妄動。</p>
 
+    <!-- Category 1: 心理建設 -->
     <div class="category-header" onclick="toggleCategory('category1')">
         <h2>一、心理建設：建立不可動搖的自我核心</h2>
         <span class="toggle-icon">+</span>
@@ -95,6 +102,7 @@
         </ul>
     </div>
 
+    <!-- Category 2: 應對策略 -->
     <div class="category-header" onclick="toggleCategory('category2')">
         <h2>二、應對策略：聰明地與人交往</h2>
         <span class="toggle-icon">+</span>
@@ -120,6 +128,7 @@
         </ul>
     </div>
 
+    <!-- Category 3: 識人辨心 -->
     <div class="category-header" onclick="toggleCategory('category3')">
         <h2>三、識人辨心：保持距離與警惕</h2>
         <span class="toggle-icon">+</span>
@@ -145,6 +154,7 @@
         </ul>
     </div>
 
+    <!-- Category 4: 界限管理 -->
     <div class="category-header" onclick="toggleCategory('category4')">
         <h2>四、界限管理：保護自我空間</h2>
         <span class="toggle-icon">+</span>
@@ -178,29 +188,29 @@
 </div>
 
 <script>
+    /**
+     * 點擊分類標題時，切換內容的顯示與隱藏
+     * @param {string} categoryId - 要切換的分類內容ID
+     */
     function toggleCategory(categoryId) {
         const content = document.getElementById(categoryId);
         const icon = content.previousElementSibling.querySelector('.toggle-icon');
         
         if (content.classList.contains('show')) {
+            // 如果當前分類已展開，則收合它
             content.classList.remove('show');
             icon.classList.remove('open');
         } else {
-            // Close all other open categories
-            const allContents = document.querySelectorAll('.category-content');
-            const allIcons = document.querySelectorAll('.toggle-icon');
+            // 先收合所有其他已展開的分類
+            const allContents = document.querySelectorAll('.category-content.show');
             allContents.forEach(item => {
                 if (item.id !== categoryId) {
                     item.classList.remove('show');
-                }
-            });
-            allIcons.forEach(item => {
-                if (item !== icon) {
-                    item.classList.remove('open');
+                    item.previousElementSibling.querySelector('.toggle-icon').classList.remove('open');
                 }
             });
 
-            // Open the clicked category
+            // 展開被點擊的分類
             content.classList.add('show');
             icon.classList.add('open');
         }
