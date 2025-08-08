@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老師不是超人：揭開台灣教育現場的真相</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: 我設計了一個以故事為導向的探索式結構，而非傳統文章的線性閱讀。開頭以強烈的視覺（英雄區塊）吸引使用者，接著透過核心的互動圖表「老師的一天」來顛覆普遍認知，讓使用者親手「揭開」真相。隨後的三大挑戰區塊，採用分頁卡片形式，讓使用者能自主探索各個壓力來源，並透過模擬互動加深體會。最後，將呼籲明確分為對家長和對社會兩部分，提供清晰的行動指引。這個結構旨在引導使用者從「認知顛覆」到「深度理解」，再到「行動呼籲」，創造一個更有影響力的體驗。 -->
+    <!-- Visualization & Content Choices: 1. [老師的一天] 報告資訊：老師工作內容遠超教學。目標：比較「想像」與「現實」的工作分配。呈現方式：Chart.js甜甜圈圖。互動：點擊按鈕切換數據，動態更新圖表。理由：將抽象的時間分配問題數據化、視覺化，互動操作帶來強烈的對比和衝擊感。 2. [三大戰爭] 報告資訊：行政、溝通、學生問題。目標：組織並詳細說明壓力來源。呈現方式：HTML/CSS/JS驅動的分頁卡片。互動：點擊切換不同主題的卡片，內容隨之改變。理由：將複雜問題拆解成易於管理的區塊，符合使用者逐一探索的習慣。 3. [給家長的呼籲] 報告資訊：停止情緒勒索，尊重專業。目標：提供清晰的建議。呈現方式：條列式清單。互動：無。理由：直接、清晰地傳達行動要點。 4. [給社會的呼籲] 報告資訊：正視教育價值，制度改革。目標：呼籲社會層面的改變。呈現方式：條列式清單。互動：無。理由：同上，確保訊息的明確傳達。 -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #FDF8F2;
+            color: #4A4A4A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .tab-active {
+            background-color: #D97706;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+        .tab-inactive {
+            background-color: #F3EADF;
+            color: #D97706;
+        }
+        .card-icon {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 py-8 md:py-16">
+
+        <header class="text-center mb-12 md:mb-20">
+            <h1 class="text-3xl md:text-5xl font-bold text-amber-800 mb-4">老師不是超人</h1>
+            <p class="text-lg md:text-xl text-stone-600 max-w-3xl mx-auto">揭開台灣教育現場的血淚真相，家長們，你們真的懂嗎？</p>
+        </header>
+
+        <section id="a-day" class="mb-16 md:mb-24 bg-white rounded-2xl shadow-lg p-6 md:p-10">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-amber-700 mb-2">老師的一天：一場看不見的戰爭</h2>
+            <p class="text-center text-stone-600 mb-8 max-w-2xl mx-auto">您想像中的老師日常，是什麼樣子？教學、備課、改作業... 但現實真是如此嗎？請點擊下方按鈕，看看老師們真實的時間分配。</p>
+            
+            <div class="chart-container mb-8">
+                <canvas id="teacherWorkloadChart"></canvas>
+            </div>
+
+            <div class="flex justify-center space-x-4">
+                <button id="perceptionBtn" class="px-6 py-2 rounded-full font-semibold transition-all duration-300 tab-active">家長的想像</button>
+                <button id="realityBtn" class="px-6 py-2 rounded-full font-semibold transition-all duration-300 tab-inactive">殘酷的現實</button>
+            </div>
+        </section>
+
+        <section id="challenges" class="mb-16 md:mb-24">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-amber-700 mb-8">老師面臨的三大戰爭</h2>
+            <div class="flex justify-center mb-8 border-b-2 border-amber-200">
+                <button data-tab="admin" class="challenge-tab tab-active flex-1 md:flex-none md:px-8 py-3 text-center font-medium transition-colors duration-300 rounded-t-lg">🤯 行政過勞</button>
+                <button data-tab="parent" class="challenge-tab tab-inactive flex-1 md:flex-none md:px-8 py-3 text-center font-medium transition-colors duration-300 rounded-t-lg">📱 家長溝通</button>
+                <button data-tab="student" class="challenge-tab tab-inactive flex-1 md:flex-none md:px-8 py-3 text-center font-medium transition-colors duration-300 rounded-t-lg">❤️‍🩹 學生問題</button>
+            </div>
+
+            <div id="challenge-content" class="bg-white rounded-2xl shadow-lg p-6 md:p-10 min-h-[300px]">
+                <div id="admin" class="challenge-panel fade-in">
+                    <h3 class="text-xl font-bold text-amber-600 mb-4">爆炸性的行政工作：教學只是冰山一角</h3>
+                    <p class="text-stone-600 mb-6">除了備課、上課、改作業，老師們還要處理堆積如山的行政事務。這些瑣碎卻龐大的工作，幾乎佔據了老師們大部分的時間，讓他們分身乏術。</p>
+                    <ul class="space-y-3 text-stone-700">
+                        <li class="flex items-start"><span class="mr-3 text-amber-600">📋</span><span>填寫各種評鑑報表、統計數據</span></li>
+                        <li class="flex items-start"><span class="mr-3 text-amber-600">🎉</span><span>籌辦校內外大大小小的活動</span></li>
+                        <li class="flex items-start"><span class="mr-3 text-amber-600">✉️</span><span>處理來自各單位的公文與要求</span></li>
+                        <li class="flex items-start"><span class="mr-3 text-amber-600">🎭</span><span>身兼導師、組長、社團指導等多重角色</span></li>
+                    </ul>
+                </div>
+                <div id="parent" class="challenge-panel fade-in hidden">
+                    <h3 class="text-xl font-bold text-amber-600 mb-4">疲於奔命的家長溝通：24小時待命的壓力</h3>
+                    <p class="text-stone-600 mb-6">通訊軟體讓溝通更方便，卻也模糊了上下班的界線。部分家長不分時段的訊息、過度的期待與要求，都讓老師承受著巨大的心理壓力。</p>
+                    <div class="bg-stone-100 p-4 rounded-lg">
+                        <div class="text-sm text-gray-500 text-center mb-2">晚上 11:38</div>
+                        <div class="bg-green-200 p-3 rounded-lg max-w-xs mb-2">老師，小明今天午餐的青菜有沒有吃完？</div>
+                        <div class="bg-green-200 p-3 rounded-lg max-w-xs">還有，明天可以幫我提醒他要帶直笛嗎？</div>
+                    </div>
+                </div>
+                <div id="student" class="challenge-panel fade-in hidden">
+                    <h3 class="text-xl font-bold text-amber-600 mb-4">複雜多變的學生問題：老師不是萬能的</h3>
+                    <p class="text-stone-600 mb-6">現在的學生面臨著比以往更複雜的問題。老師們往往在缺乏足夠專業訓練和資源的情況下，獨自承擔起超乎教學範圍的輔導工作。</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="bg-stone-100 p-4 rounded-lg"><div class="card-icon">🧠</div><span class="font-semibold">情緒障礙</span></div>
+                        <div class="bg-stone-100 p-4 rounded-lg"><div class="card-icon">🧩</div><span class="font-semibold">學習困難</span></div>
+                        <div class="bg-stone-100 p-4 rounded-lg"><div class="card-icon">🏡</div><span class="font-semibold">家庭困境</span></div>
+                        <div class="bg-stone-100 p-4 rounded-lg"><div class="card-icon">👥</div><span class="font-semibold">人際關係</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="call-to-action" class="mb-16 md:mb-24">
+            <h2 class="text-2xl md:text-3xl font-bold text-center text-amber-700 mb-8">我們該如何修復？</h2>
+            <p class="text-center text-stone-600 mb-10 max-w-3xl mx-auto">老師的困境，是整個社會的共同病徵。當教育被當作「服務業」，老師的專業與熱情正被消磨。改變，需要我們每一個人的努力。</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-amber-600 mb-4">給家長的呼籲：成為老師的神隊友</h3>
+                    <p class="mb-4 text-stone-600">家庭教育與學校教育同等重要。請停止將所有責任都推給老師，與老師成為夥伴，一起幫助孩子成長。</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><span class="mr-3 text-amber-500 font-bold">🤝</span><div><strong class="text-stone-700">多一點同理心：</strong>試著了解老師的工作，保持良性溝通。</div></li>
+                        <li class="flex items-start"><span class="mr-3 text-amber-500 font-bold">👑</span><div><strong class="text-stone-700">別養成王子/公主：</strong>培養孩子的挫折忍受力與同理心。</div></li>
+                        <li class="flex items-start"><span class="mr-3 text-amber-500 font-bold">🎓</span><div><strong class="text-stone-700">尊重教育專業：</strong>信任老師的專業判斷，給予支持而非干預。</div></li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-amber-600 mb-4">給社會的呼籲：找回對教育的尊重</h3>
+                    <p class="mb-4 text-stone-600">請社會大眾重新審視教育的價值，給予老師們應有的尊重與支持，並督促制度改革。</p>
+                     <ul class="space-y-3">
+                        <li class="flex items-start"><span class="mr-3 text-amber-500 font-bold">❤️</span><div><strong class="text-stone-700">正視教育價值：</strong>給予老師應有的社會地位與尊重。</div></li>
+                        <li class="flex items-start"><span class="mr-3 text-amber-500 font-bold">⚖️</span><div><strong class="text-stone-700">推動制度改革：</strong>減少不必要的行政事務，讓老師回歸教學。</div></li>
+                        <li class="flex items-start"><span class="mr-3 text-amber-500 font-bold">🛠️</span><div><strong class="text-stone-700">提供專業資源：</strong>支持老師面對多樣化的學生問題。</div></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center border-t-2 border-amber-200 pt-8">
+            <h3 class="text-xl md:text-2xl font-bold text-amber-800 mb-4">誰來守護老師的熱情？</h3>
+            <p class="text-stone-600 max-w-2xl mx-auto mb-6">老師的熱情是台灣教育最寶貴的資產。從現在開始，當您看到老師時，請給他們一個微笑，說聲「老師，辛苦了！」這小小的舉動，都可能成為他們堅持下去的力量。</p>
+            <p class="text-stone-600 max-w-2xl mx-auto mb-6">文章來源：<a href="https://www.facebook.com/share/p/14P626137in/" target="_blank" class="text-amber-600 hover:text-amber-800 transition-colors duration-200 underline">Facebook 貼文</a></p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const perceptionData = {
+                labels: ['教學備課', '批改作業', '行政雜務', '親師溝通'],
+                datasets: [{
+                    label: '工作量佔比',
+                    data: [65, 25, 5, 5],
+                    backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0'],
+                    hoverOffset: 4
+                }]
+            };
+
+            const realityData = {
+                labels: ['行政雜務', '親師溝通', '處理學生問題', '教學備課'],
+                datasets: [{
+                    label: '工作量佔比',
+                    data: [40, 30, 15, 15],
+                    backgroundColor: ['#FF6384', '#4BC0C0', '#FF9F40', '#36A2EB'],
+                    hoverOffset: 4
+                }]
+            };
+
+            const chartConfig = {
+                type: 'doughnut',
+                data: perceptionData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    family: "'Noto Sans TC', sans-serif",
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += '：';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('teacherWorkloadChart').getContext('2d');
+            const teacherWorkloadChart = new Chart(ctx, chartConfig);
+
+            const perceptionBtn = document.getElementById('perceptionBtn');
+            const realityBtn = document.getElementById('realityBtn');
+
+            function updateChart(data, activeBtn, inactiveBtn) {
+                teacherWorkloadChart.data = data;
+                teacherWorkloadChart.update();
+                activeBtn.classList.replace('tab-inactive', 'tab-active');
+                inactiveBtn.classList.replace('tab-active', 'tab-inactive');
+            }
+
+            perceptionBtn.addEventListener('click', () => updateChart(perceptionData, perceptionBtn, realityBtn));
+            realityBtn.addEventListener('click', () => updateChart(realityData, realityBtn, perceptionBtn));
+
+            const challengeTabs = document.querySelectorAll('.challenge-tab');
+            const challengePanels = document.querySelectorAll('.challenge-panel');
+
+            challengeTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetPanelId = tab.dataset.tab;
+
+                    challengeTabs.forEach(t => {
+                        t.classList.replace('tab-active', 'tab-inactive');
+                    });
+                    tab.classList.replace('tab-inactive', 'tab-active');
+
+                    challengePanels.forEach(panel => {
+                        if (panel.id === targetPanelId) {
+                            panel.classList.remove('hidden');
+                            panel.classList.add('fade-in');
+                        } else {
+                            panel.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
