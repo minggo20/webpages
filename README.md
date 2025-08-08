@@ -12,3 +12,5 @@ https://minggo20.github.io/webpages/2025-08-04_01.html
 https://minggo20.github.io/webpages/2025-08-04_02.html
 ### 
 https://minggo20.github.io/webpages/2025-08-04_03.html
+### 老師不是超人：揭開台灣教育現場的真相
+https://minggo20.github.io/webpages/2025-08-08_01.html
