@@ -14,3 +14,5 @@ https://minggo20.github.io/webpages/2025-08-04_02.html
 https://minggo20.github.io/webpages/2025-08-04_03.html
 ### 老師不是超人：揭開台灣教育現場的真相
 https://minggo20.github.io/webpages/2025-08-08_01.html
+### 呂聰賢老師 AI 研習資訊總覽
+https://minggo20.github.io/webpages/2025-08-10_01.html
