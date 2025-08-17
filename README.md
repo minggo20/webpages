@@ -16,3 +16,5 @@ https://minggo20.github.io/webpages/2025-08-04_03.html
 https://minggo20.github.io/webpages/2025-08-08_01.html
 ### 呂聰賢老師 AI 研習資訊總覽
 https://minggo20.github.io/webpages/2025-08-10_01.html
+
+## [互動報告：NotebookLM 圖片分析](https://minggo20.github.io/webpages/2025-08-17_01.html)
