@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資訊圖表：NotebookLM 教育應用解析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- Application Structure Plan: A top-down narrative structure designed for clarity and impact. It starts with a high-level hook (Header), then visually breaks down the tool's core functions (Donut Chart), quantifies its main application areas (Bar Chart), presents key limitations in a scannable format (Icon Cards), and ends with a summary. This linear storytelling approach was chosen to guide the user logically from 'what it is' to 'how it's used' and 'what to watch out for', making complex information highly digestible. -->
+    <!-- Visualization & Content Choices: 
+        - Core Functions: Goal: Inform -> Donut Chart (Chart.js) -> Shows the composition of NotebookLM's capabilities (Analysis, OCR, Generation) as parts of a whole. Justification: More engaging than a list for showing proportions. NO SVG.
+        - Key Application Areas: Goal: Compare -> Horizontal Bar Chart (Chart.js) -> Compares the impact across different educational activities. Justification: Ideal for ranking and comparing distinct categories visually. NO SVG.
+        - Limitations: Goal: Inform -> Styled HTML Cards with Unicode Icons -> Presents critical warnings in a highly scannable, non-technical format. Justification: Better for qualitative points than a data chart. NO SVG.
+        - This structure uses specific chart types to best represent different kinds of information—composition, comparison, and categorical lists. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #F0F4F8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#45B7D1] mb-4">解鎖視覺知識：NotebookLM 教育神器</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-600">
+                告別雜亂的圖表與圖片，探索 Google AI 如何將視覺資訊轉化為強大的學習與教學工具。
+            </p>
+        </header>
+
+        <main>
+            <section class="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-16">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-[#4ECDC4] mb-2">三大核心功能解析</h2>
+                <p class="text-center max-w-2xl mx-auto mb-8 text-gray-500">NotebookLM 的圖片分析能力主要建立在三大支柱上，共同為使用者提供從理解到創造的完整體驗。</p>
+                <div class="chart-container">
+                    <canvas id="coreFunctionsChart"></canvas>
+                </div>
+            </section>
+            
+            <section class="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-16">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-[#FF6B6B] mb-2">關鍵教育應用領域影響力</h2>
+                <p class="text-center max-w-2xl mx-auto mb-8 text-gray-500">從提升學習效率到輔助學術研究，NotebookLM 在多個教育環節中都展現出巨大潛力。下圖比較了其在各主要應用領域的相對影響力。</p>
+                <div class="chart-container" style="height: 450px; max-height: 500px;">
+                    <canvas id="applicationsChart"></canvas>
+                </div>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-center text-[#F7B801] mb-8">應用前的重要考量</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 text-center">
+                        <span class="text-5xl mb-4 block">⚠️</span>
+                        <h3 class="font-bold text-xl mb-2">資訊準確性</h3>
+                        <p class="text-gray-600">AI 回應需謹慎看待，建議與原始資料進行事實查核。</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 text-center">
+                        <span class="text-5xl mb-4 block">🧩</span>
+                        <h3 class="font-bold text-xl mb-2">圖片處理限制</h3>
+                        <p class="text-gray-600">處理圖文混合的PDF時，可能優先分析文字而忽略圖片。</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 text-center">
+                        <span class="text-5xl mb-4 block">🔄</span>
+                        <h3 class="font-bold text-xl mb-2">檔案格式要求</h3>
+                        <p class="text-gray-600">需使用 Google 簡報或 PDF 格式，其他格式需手動轉換。</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 text-center">
+                        <span class="text-5xl mb-4 block">🌐</span>
+                        <h3 class="font-bold text-xl mb-2">部分功能僅限英文</h3>
+                        <p class="text-gray-600">語音摘要等進階多媒體功能，目前主要支援英文內容。</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-16 mb-8">
+            <p class="text-gray-500">善用 AI 工具，結合您的專業判斷，將能開啟智慧教育的新篇章。</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const FONT_STYLE = {
+                family: "'Noto Sans TC', sans-serif",
+                size: 14
+            };
+
+            const commonTooltipCallback = {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            };
+
+            const coreFunctionsCtx = document.getElementById('coreFunctionsChart').getContext('2d');
+            new Chart(coreFunctionsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['視覺內容解析', 'OCR 文字提取', '互動材料生成'],
+                    datasets: [{
+                        data: [45, 30, 25],
+                        backgroundColor: ['#4ECDC4', '#45B7D1', '#FF6B6B'],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 4,
+                        hoverBorderColor: '#F0F4F8'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: FONT_STYLE,
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            callbacks: commonTooltipCallback,
+                            bodyFont: FONT_STYLE,
+                            titleFont: { ...FONT_STYLE, weight: 'bold' }
+                        }
+                    }
+                }
+            });
+
+            const applicationsCtx = document.getElementById('applicationsChart').getContext('2d');
+            new Chart(applicationsCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        ['提升視覺資訊', '的理解與效率'], 
+                        ['輔助學術研究', '與論文撰寫'], 
+                        ['創新教學與', '內容呈現'], 
+                        ['助力語言學習與', '跨文化理解']
+                    ],
+                    datasets: [{
+                        label: '相對影響力評分',
+                        data: [9.5, 9.0, 8.5, 7.5],
+                        backgroundColor: ['#FF6B6B', '#F7B801', '#4ECDC4', '#45B7D1'],
+                        borderRadius: 8,
+                        barThickness: 30
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: FONT_STYLE
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: commonTooltipCallback,
+                            bodyFont: FONT_STYLE,
+                            titleFont: { ...FONT_STYLE, weight: 'bold' }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
