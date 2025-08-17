@@ -17,5 +17,6 @@ https://minggo20.github.io/webpages/2025-08-08_01.html
 ### 呂聰賢老師 AI 研習資訊總覽
 https://minggo20.github.io/webpages/2025-08-10_01.html
 
+## From [跟著 LEONA 老師一起玩 AI](https://www.facebook.com/profile.php?id=61574867267543)
 ### [01互動報告：NotebookLM 圖片分析](https://minggo20.github.io/webpages/2025-08-17_01.html)
 ### [02資訊圖表：NotebookLM 教育應用解析](https://minggo20.github.io/webpages/2025-08-17_02.html)
