@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互動報告：NotebookLM 圖片分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony Neutrals -->
+    <!-- Application Structure Plan: A thematic, single-page application designed for intuitive exploration. The structure progresses from a high-level introduction (Hero section) to a simplified functional explanation ('How it Works'), then dives into role-specific benefits ('Key Applications' with interactive tabs for Students/Teachers), followed by a nuanced visual analysis of capabilities ('Potential vs. Reality' radar chart), and concludes with scannable practical advice ('Important Considerations'). This user-centric flow was chosen over a linear report structure to make the information more targeted, engaging, and easier to synthesize for the intended audience of educators and students. -->
+    <!-- Visualization & Content Choices: 
+        - Hero/Intro: Inform -> Static Text -> None -> Clear, immediate context.
+        - Key Applications: Organize/Inform -> Tabbed Interface (HTML/CSS/JS) -> User clicks to filter content -> Reduces cognitive load by showing only relevant information for 'Students' or 'Teachers'.
+        - Potential vs. Reality: Compare/Analyze -> Radar Chart (Chart.js/Canvas) -> Hover for tooltips -> Visually represents the gap between the tool's promise and its current state across multiple features, offering a quick, data-rich insight that is more impactful than a simple text list.
+        - Considerations: Inform -> Card Grid (HTML/CSS) -> None -> Enhances scannability for crucial limitations and advice.
+        - This design uses interactive components to focus user attention and a data visualization to provide a deeper analytical perspective. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #FDFBF7;
+            color: #4A4A4A;
+        }
+        .active-tab {
+            background-color: #C87E62 !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .inactive-tab {
+            background-color: #EAE3D9;
+            color: #4A4A4A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#C87E62] mb-4">NotebookLM 圖片分析</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-600">一個將視覺圖表轉化為互動知識的教育神器</p>
+        </header>
+
+        <main>
+            <section id="intro" class="mb-20">
+                <div class="max-w-4xl mx-auto bg-white/60 p-8 rounded-2xl shadow-sm border border-gray-200">
+                    <h2 class="text-2xl font-bold text-center text-[#6C8B83] mb-6">告別圖表茫然，迎接智慧視覺學習</h2>
+                    <p class="text-base text-gray-700 leading-relaxed">
+                        您是否曾為如何高效地在教學中應用圖表和圖片資料而煩惱？Google 的 AI 筆記助手 NotebookLM，搭載強大的 Gemini 1.5 Pro 模型，現在具備了「看懂」視覺資訊的能力。本互動報告將帶您深入了解其核心功能、在教育領域的亮點應用，以及現階段需要注意的實際考量，幫助您將靜態圖片轉化為動態的學習利器。
+                    </p>
+                </div>
+            </section>
+
+            <section id="applications" class="mb-20">
+                <h2 class="text-3xl font-bold text-center mb-10 text-[#6C8B83]">核心教育應用</h2>
+                <p class="text-center max-w-3xl mx-auto mb-12 text-gray-600">
+                    NotebookLM 為不同使用者群體提供了量身打造的功能。點擊下方按鈕，探索它如何為學生和教師的教與學過程帶來變革。
+                </p>
+                <div class="flex justify-center mb-8 space-x-4">
+                    <button id="btn-student" class="px-8 py-3 font-semibold rounded-full transition-all duration-300 active-tab">我是學生</button>
+                    <button id="btn-teacher" class="px-8 py-3 font-semibold rounded-full transition-all duration-300 inactive-tab">我是教師</button>
+                </div>
+
+                <div id="content-student" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+
+                <div id="content-teacher" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+                </div>
+            </section>
+
+            <section id="capability-analysis" class="mb-20 py-16 bg-white/60 rounded-2xl shadow-sm border border-gray-200">
+                <h2 class="text-3xl font-bold text-center mb-4 text-[#6C8B83]">潛力 vs. 現實：功能分析</h2>
+                <p class="text-center max-w-3xl mx-auto mb-12 text-gray-600">
+                    雖然 NotebookLM 的潛力巨大，但了解其當前功能的實際表現也同樣重要。下方的雷達圖直觀地比較了各項功能的「理想潛力」與「當前現實」，將滑鼠懸停在圖表節點上可查看詳細說明。
+                </p>
+                <div class="chart-container">
+                    <canvas id="capabilityChart"></canvas>
+                </div>
+            </section>
+
+            <section id="considerations">
+                <h2 class="text-3xl font-bold text-center mb-10 text-[#6C8B83]">應用時的重要提醒</h2>
+                 <p class="text-center max-w-3xl mx-auto mb-12 text-gray-600">
+                    在使用 NotebookLM 時，請記住以下幾點，以確保最佳體驗並保持學術嚴謹性。這些提醒能幫助您更有效地利用此工具，同時避免潛在的陷阱。
+                </p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center">
+                        <span class="text-4xl mb-4 block">💡</span>
+                        <h3 class="font-bold text-lg mb-2">資訊準確性</h3>
+                        <p class="text-sm text-gray-600">AI 回應可能不完全準確，務必與原始資料來源進行交叉比對與事實查核。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center">
+                        <span class="text-4xl mb-4 block">⚙️</span>
+                        <h3 class="font-bold text-lg mb-2">圖片處理能力</h3>
+                        <p class="text-sm text-gray-600">處理圖文混合的PDF時，可能優先分析文字而忽略圖片。純圖片PDF處理效果較好。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center">
+                        <span class="text-4xl mb-4 block">🔄</span>
+                        <h3 class="font-bold text-lg mb-2">檔案格式限制</h3>
+                        <p class="text-sm text-gray-600">PowerPoint 檔案需手動轉存為 Google 簡報或 PDF 格式才能上傳使用。</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center">
+                        <span class="text-4xl mb-4 block">🌐</span>
+                        <h3 class="font-bold text-lg mb-2">功能語言限制</h3>
+                        <p class="text-sm text-gray-600">語音摘要、視訊概覽等進階功能目前主要支援英文，限制了在非英語環境的應用。</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-20 pt-8 border-t border-gray-200">
+            <div class="mb-2">
+                <p class="text-gray-500">互動報告由 AI 生成，旨在以更直觀的方式呈現資訊。</p>
+            </div>
+            <div>
+                <p class="text-gray-500">
+                    <a href="https://www.facebook.com/share/p/1EWyQeEWC7/" class="underline hover:text-[#C87E62]" target="_blank" rel="noopener noreferrer">資料來源</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const studentBtn = document.getElementById('btn-student');
+            const teacherBtn = document.getElementById('btn-teacher');
+            const studentContent = document.getElementById('content-student');
+            const teacherContent = document.getElementById('content-teacher');
+
+            const studentData = [
+                { icon: '🧠', title: '提升視覺理解', description: '上傳科學圖解、歷史地圖等，AI能解釋內容、邏輯與流程，加深理解。' },
+                { icon: '🔗', title: '強化概念連結', description: 'AI能整合多個圖表間的訊息，幫助建立完整的知識體系，告別碎片化學習。' },
+                { icon: '📊', title: '輔助學術研究', description: '快速分析論文中的數據圖表，總結趨勢與核心資訊，提升論文寫作效率。' },
+                { icon: '✍️', title: '提取圖片文字', description: '利用OCR技術從掃描文件或圖片中提取文字，省下大量手動打字時間。' },
+                { icon: '✅', title: '引用與事實查核', description: '回覆會標註來源，點擊即可跳轉至原文，確保學術寫作的嚴謹性。' },
+                { icon: '🌍', title: '助力語言學習', description: '分析圖片中的外語文字或圖說，並提供翻譯，降低跨文化學習的語言障礙。' }
+            ];
+
+            const teacherData = [
+                { icon: '🧩', title: '生成互動材料', description: '將帶有氣候圖、電路圖的教材，快速轉換為可互動的學習指南或常見問題集。' },
+                { icon: '🗺️', title: '自動生成心智圖', description: '根據資料來源，自動生成視覺化的心智圖，幫助學生以視覺化方式理解資料。' },
+                { icon: '📽️', title: '快速製作簡報', description: '將資料轉換成簡報文件格式，並從文件中提取圖片、圖表嵌入，節省備課時間。' },
+                { icon: '🎙️', title: '創建語音摘要', description: '將文字資料來源轉換成 AI 語音對談，為聽覺型學習者提供多樣化的學習方式。' },
+                { icon: '�', title: '創新教學呈現', description: '利用AI快速生成多樣化的教學內容，豐富課堂呈現方式，提升學生參與度。' },
+                { icon: '🔍', title: '輔助內容創造', description: '作為強大的內容創造輔助工具，幫助教師快速整理、分析和呈現複雜的視覺資訊。' }
+            ];
+
+            function createCard(item) {
+                return `
+                    <div class="bg-[#FFFFFF] p-6 rounded-xl shadow-sm border border-gray-200 transform hover:-translate-y-1 transition-transform duration-300">
+                        <div class="text-4xl mb-4">${item.icon}</div>
+                        <h3 class="font-bold text-lg mb-2 text-[#C87E62]">${item.title}</h3>
+                        <p class="text-sm text-gray-600">${item.description}</p>
+                    </div>
+                `;
+            }
+
+            studentContent.innerHTML = studentData.map(createCard).join('');
+            teacherContent.innerHTML = teacherData.map(createCard).join('');
+
+            studentBtn.addEventListener('click', () => {
+                studentBtn.classList.add('active-tab');
+                studentBtn.classList.remove('inactive-tab');
+                teacherBtn.classList.add('inactive-tab');
+                teacherBtn.classList.remove('active-tab');
+                studentContent.classList.remove('hidden');
+                teacherContent.classList.add('hidden');
+            });
+
+            teacherBtn.addEventListener('click', () => {
+                teacherBtn.classList.add('active-tab');
+                teacherBtn.classList.remove('inactive-tab');
+                studentBtn.classList.add('inactive-tab');
+                studentBtn.classList.remove('active-tab');
+                teacherContent.classList.remove('hidden');
+                studentContent.classList.add('hidden');
+            });
+
+            const ctx = document.getElementById('capabilityChart').getContext('2d');
+            const capabilityChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['圖表邏輯理解', 'OCR文字提取', '多語言能力', '檔案格式支援', '資訊準確性', '互動內容生成'],
+                    datasets: [{
+                        label: '理想潛力',
+                        data: [9, 10, 8, 9, 9, 10],
+                        backgroundColor: 'rgba(200, 126, 98, 0.2)',
+                        borderColor: 'rgba(200, 126, 98, 1)',
+                        pointBackgroundColor: 'rgba(200, 126, 98, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(200, 126, 98, 1)'
+                    }, {
+                        label: '當前現實',
+                        data: [6, 8, 5, 6, 7, 7],
+                        backgroundColor: 'rgba(108, 139, 131, 0.2)',
+                        borderColor: 'rgba(108, 139, 131, 1)',
+                        pointBackgroundColor: 'rgba(108, 139, 131, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(108, 139, 131, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans TC', sans-serif"
+                                },
+                                color: '#4A4A4A'
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(253, 251, 247, 0.75)',
+                                color: '#666',
+                                stepSize: 2
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans TC', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.r !== null) {
+                                        label += context.parsed.r;
+                                        const feature = context.label;
+                                        const status = context.dataset.label;
+                                        let detail = '';
+                                        if (feature === '圖表邏輯理解' && status === '當前現實') detail = ' - 對複雜圖文混合PDF支援不穩';
+                                        if (feature === '多語言能力' && status === '當前現實') detail = ' - 進階功能僅支援英文';
+                                        if (feature === '檔案格式支援' && status === '當前現實') detail = ' - 需手動轉換格式';
+                                        if (feature === '資訊準確性' && status === '當前現實') detail = ' - 需人工事實查核';
+                                        label += detail;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+�
