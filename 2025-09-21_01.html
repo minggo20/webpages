@@ -64,18 +64,29 @@
     </style>
 </head>
 <body class="antialiased">
-
-    <main class="container mx-auto px-4 py-8 md:py-12">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#EFEBE6] shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#top" class="text-xl font-bold text-[#A67B5B] hover:text-[#8e694d] transition-colors duration-200">Wispr Flow</a>
+            <div class="flex-grow flex justify-center space-x-2 md:space-x-4">
+                <a href="#efficiency-h2" class="text-sm md:text-base text-gray-600 hover:text-[#A67B5B] transition-colors duration-200">效率瓶頸</a>
+                <a href="#problem-h2" class="text-sm md:text-base text-gray-600 hover:text-[#A67B5B] transition-colors duration-200">心流中斷</a>
+                <a href="#features-h2" class="text-sm md:text-base text-gray-600 hover:text-[#A67B5B] transition-colors duration-200">無縫接軌</a>
+                <a href="#workflow-h2" class="text-sm md:text-base text-gray-600 hover:text-[#A67B5B] transition-colors duration-200">工作流</a>
+                <a href="#recommendation-h2" class="text-sm md:text-base text-gray-600 hover:text-[#A67B5B] transition-colors duration-200">立即體驗</a>
+            </div>
+        </div>
+    </nav>
+    <main class="container mx-auto px-4 py-8 md:py-12 mt-16">
 
         <!-- Hero Section -->
-        <header class="text-center mb-12 md:mb-16">
+        <header id="top" class="text-center mb-12 md:mb-16">
             <h1 class="text-3xl md:text-5xl font-bold text-[#A67B5B] mb-4">Wispr Flow 讓我打字效率瞬間提升 4 倍？</h1>
             <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">身為一個與鍵盤綁定的創作者，我一直在尋找更輕鬆、更直覺的工作方式。這款 AI 語音輸入軟體，徹底顛覆了我的想像。</p>
         </header>
 
         <!-- Efficiency Chart Section -->
         <section id="efficiency" class="mb-16 md:mb-20">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">告別傳統打字的效率瓶頸</h2>
+            <h2 id="efficiency-h2" class="text-2xl md:text-3xl font-bold text-center mb-2">告別傳統打字的效率瓶頸</h2>
             <p class="text-center text-gray-600 mb-8">當「說話」成為主要輸入方式，工作流程將迎來巨大變革。</p>
             <div class="chart-container">
                 <canvas id="efficiencyChart"></canvas>
@@ -84,7 +95,7 @@
 
         <!-- The Problem Section -->
         <section id="problem" class="mb-16 md:mb-20 bg-white p-8 rounded-2xl shadow-sm">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">您是否也困在「中斷心流」的迴圈？</h2>
+            <h2 id="problem-h2" class="text-2xl md:text-3xl font-bold text-center mb-2">您是否也困在「中斷心流」的迴圈？</h2>
             <p class="text-center text-gray-600 mb-8">傳統語音輸入最大的痛點，在於繁瑣的步驟不斷打斷思緒的流暢感。</p>
             <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 text-center">
                 <div class="p-4 bg-gray-100 rounded-lg w-40">開啟另一個App</div>
@@ -99,7 +110,7 @@
 
         <!-- Features Section -->
         <section id="features" class="mb-16 md:mb-20">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">Wispr Flow 如何實現「無縫接軌」？</h2>
+            <h2 id="features-h2" class="text-2xl md:text-3xl font-bold text-center mb-8">Wispr Flow 如何實現「無縫接軌」？</h2>
             <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8" id="tabs">
                 <button data-tab="feature1" class="tab-button px-4 py-2 rounded-full text-sm md:text-base transition-colors duration-300 tab-active">⚡️ 隨傳隨到</button>
                 <button data-tab="feature2" class="tab-button px-4 py-2 rounded-full text-sm md:text-base transition-colors duration-300 tab-inactive">✍️ AI 寫作編輯</button>
@@ -139,7 +150,7 @@
         
         <!-- Workflow Transformation -->
         <section id="workflow" class="mb-16 md:mb-20">
-             <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">我的工作流如何被徹底改變？</h2>
+             <h2 id="workflow-h2" class="text-2xl md:text-3xl font-bold text-center mb-8">我的工作流如何被徹底改變？</h2>
              <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-white p-6 rounded-2xl shadow-sm">
                     <h3 class="font-bold text-lg mb-2 text-center">✍️ 撰寫文章初稿</h3>
@@ -160,11 +171,11 @@
 
         <!-- Call to Action -->
         <footer class="text-center">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4">誠摯推薦給每一位「知識工作者」</h2>
+            <h2 id="recommendation-h2" class="text-2xl md:text-3xl font-bold mb-4">誠摯推薦給每一位「知識工作者」</h2>
             <p class="text-gray-600 max-w-3xl mx-auto mb-8">如果您每天需要處理大量文字，或頻繁使用 AI 工具，我強烈推薦您親身體驗 Wispr Flow。那種「心念一動，話語成文」的暢快感，一旦體驗過，就再也回不去了。</p>
-            <a href="https://wisprflow.ai/" class="inline-block bg-[#A67B5B] text-white font-bold px-8 py-3 rounded-full text-lg hover:bg-[#8e694d] transition-colors duration-300 shadow-lg"></a>
-            <a href="#" class="inline-block bg-[#A67B5B] text-white font-bold px-8 py-3 rounded-full text-lg hover:bg-[#8e694d] transition-colors duration-300 shadow-lg">立即免費體驗 Pro 版</a>
+            <a href="https://wispr.ai/" target="_blank" class="inline-block bg-[#A67B5B] text-white font-bold px-8 py-3 rounded-full text-lg hover:bg-[#8e694d] transition-colors duration-300 shadow-lg">立即免費體驗 Pro 版</a>
             <p class="text-sm text-gray-500 mt-4">目前支援 Windows, Mac, iOS (Android 開發中)</p>
+            <p class="text-sm text-gray-500 mt-2">文章來源：<a href="https://readingoutpost.com/wispr-flow/" target="_blank" class="underline hover:text-gray-700">閱讀前哨站</a> | 官方網站：<a href="https://wispr.ai/" target="_blank" class="underline hover:text-gray-700">wispr.ai</a></p>
         </footer>
 
     </main>
@@ -247,6 +258,15 @@
                             panel.classList.remove('content-visible');
                             panel.classList.add('content-hidden');
                         }
+                    });
+                });
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
                     });
                 });
             });
