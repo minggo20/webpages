@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wispr Flow: 一場從指尖到舌尖的革命</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (Warm Neutrals) -->
+    <!-- Application Structure Plan: The SPA is designed as an interactive "product discovery" journey rather than a linear article. It starts with a hero section featuring the key value proposition (4x efficiency) visualized in a chart. It then presents the "problem" (the old, cumbersome workflow) before showcasing the "solution" through an interactive tabbed section detailing Wispr Flow's core features. This structure allows users to quickly grasp the value and then explore features at their own pace, which is more engaging and user-friendly than reading a long text. The design concludes with practical applications, a special "pro-tip," and a clear call to action, guiding the user from understanding to potential adoption. -->
+    <!-- Visualization & Content Choices: 
+        - Productivity Increase: Report Info -> 4x efficiency claim. Goal -> Inform/Compare. Viz -> Bar Chart. Interaction -> Static visual impact. Justification -> A chart provides immediate, powerful validation of the headline claim. Library -> Chart.js (Canvas).
+        - Old Workflow: Report Info -> Description of switching apps, copying, pasting. Goal -> Organize/Illustrate a pain point. Viz -> HTML/CSS flowchart. Interaction -> None needed, simplicity is key. Justification -> Visually represents the friction the user aims to solve. Library -> Tailwind CSS.
+        - Core Features: Report Info -> The 6 main features (Seamless Integration, AI Editing, etc.). Goal -> Organize/Inform. Viz -> Tabbed content sections. Interaction -> User clicks tabs to reveal feature details. Justification -> Breaks down complex information into digestible, user-controlled chunks, preventing overwhelm. Library -> Vanilla JS.
+        - Snippet Demo: Report Info -> Snippet feature explanation. Goal -> Demonstrate. Viz -> Interactive text block. Interaction -> Click to expand keyword into full text. Justification -> Provides a tangible mini-simulation of the feature's power. Library -> Vanilla JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #F8F7F4;
+            color: #3D3B37;
+        }
+        .tab-active {
+            background-color: #A67B5B;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+        .tab-inactive {
+            background-color: #EFEBE6;
+            color: #3D3B37;
+        }
+        .content-panel {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .content-hidden {
+            opacity: 0;
+            transform: translateY(10px);
+            position: absolute;
+            pointer-events: none;
+        }
+        .content-visible {
+            opacity: 1;
+            transform: translateY(0);
+            position: static;
+        }
+        .chart-container {
+            position: relative; 
+            width: 100%; 
+            max-width: 500px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 640px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto px-4 py-8 md:py-12">
+
+        <!-- Hero Section -->
+        <header class="text-center mb-12 md:mb-16">
+            <h1 class="text-3xl md:text-5xl font-bold text-[#A67B5B] mb-4">Wispr Flow 讓我打字效率瞬間提升 4 倍？</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">身為一個與鍵盤綁定的創作者，我一直在尋找更輕鬆、更直覺的工作方式。這款 AI 語音輸入軟體，徹底顛覆了我的想像。</p>
+        </header>
+
+        <!-- Efficiency Chart Section -->
+        <section id="efficiency" class="mb-16 md:mb-20">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">告別傳統打字的效率瓶頸</h2>
+            <p class="text-center text-gray-600 mb-8">當「說話」成為主要輸入方式，工作流程將迎來巨大變革。</p>
+            <div class="chart-container">
+                <canvas id="efficiencyChart"></canvas>
+            </div>
+        </section>
+
+        <!-- The Problem Section -->
+        <section id="problem" class="mb-16 md:mb-20 bg-white p-8 rounded-2xl shadow-sm">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2">您是否也困在「中斷心流」的迴圈？</h2>
+            <p class="text-center text-gray-600 mb-8">傳統語音輸入最大的痛點，在於繁瑣的步驟不斷打斷思緒的流暢感。</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 text-center">
+                <div class="p-4 bg-gray-100 rounded-lg w-40">開啟另一個App</div>
+                <div class="text-2xl font-bold text-[#A67B5B]">→</div>
+                <div class="p-4 bg-gray-100 rounded-lg w-40">複製轉換文字</div>
+                <div class="text-2xl font-bold text-[#A67B5B]">→</div>
+                <div class="p-4 bg-gray-100 rounded-lg w-40">切換回工作區</div>
+                <div class="text-2xl font-bold text-[#A67B5B]">→</div>
+                <div class="p-4 bg-red-100 text-red-700 rounded-lg w-40">😫 貼上&心流中斷</div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="mb-16 md:mb-20">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">Wispr Flow 如何實現「無縫接軌」？</h2>
+            <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8" id="tabs">
+                <button data-tab="feature1" class="tab-button px-4 py-2 rounded-full text-sm md:text-base transition-colors duration-300 tab-active">⚡️ 隨傳隨到</button>
+                <button data-tab="feature2" class="tab-button px-4 py-2 rounded-full text-sm md:text-base transition-colors duration-300 tab-inactive">✍️ AI 寫作編輯</button>
+                <button data-tab="feature3" class="tab-button px-4 py-2 rounded-full text-sm md:text-base transition-colors duration-300 tab-inactive">🚀 近乎同步</button>
+                <button data-tab="feature4" class="tab-button px-4 py-2 rounded-full text-sm md:text-base transition-colors duration-300 tab-inactive">🔒 永不遺失</button>
+                <button data-tab="feature5" class="tab-button px-4 py-2 rounded-full text-sm md:text-base transition-colors duration-300 tab-inactive">📚 客製化字典</button>
+                <button data-tab="feature6" class="tab-button px-4 py-2 rounded-full text-sm md:text-base transition-colors duration-300 tab-inactive">🪄 文字片段</button>
+            </div>
+
+            <div id="tab-content" class="relative min-h-[350px] md:min-h-[300px]">
+                <div id="feature1" class="content-panel content-visible bg-white p-8 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 text-[#A67B5B]">在任何地方都能直接輸入</h3>
+                    <p class="text-gray-700">惱人的「切換、複製、貼上」流程被徹底刪除。無論您正在使用哪個應用程式，只需按下 <code class="bg-gray-200 px-2 py-1 rounded">Ctrl + Win</code> 快速鍵，即可開始說話。講完放開，文字就直接出現在游標位置。那種「想到哪，說到哪，字就到哪」的體驗，完全移除了過去語音輸入的所有阻力。</p>
+                </div>
+                <div id="feature2" class="content-panel content-hidden bg-white p-8 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 text-[#A67B5B]">不只是轉錄，更是您的 AI 寫作編輯</h3>
+                    <p class="text-gray-700">Wispr Flow 的 AI 會在您說話的當下進行「編輯」。它會自動移除「呃、嗯」等贅字、根據語氣補上標點符號、甚至智慧判斷換行。更聰明的是，它會偵測您使用的軟體（如 LINE 或 Notion）來微調輸出的文字風格，讓內容幾乎就是一份「接近完稿」的作品。</p>
+                </div>
+                <div id="feature3" class="content-panel content-hidden bg-white p-8 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 text-[#A67B5B]">近乎同步的「平行處理」轉換速度</h3>
+                    <p class="text-gray-700">當您還在說話時，AI 已經在背景同步進行轉換。這就是它最厲害的「黑科技」。因此，在您講完最後一個字、放開按鍵的那一刻，約一到兩秒內，整段文字就完美地出現在輸入框裡。這種即時性讓思考與對話的節奏變得非常快，特別是在與 AI 密集協作時。</p>
+                </div>
+                 <div id="feature4" class="content-panel content-hidden bg-white p-8 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 text-[#A67B5B]">超乎想像的安心感：永不遺失的語音紀錄</h3>
+                    <p class="text-gray-700">您講過的每一段話，都會被自動儲存成「語音檔案」和「文字記錄」。這代表一個強大的「安全網」，就算不小心輸入失敗，您也可以隨時打開主介面，輕鬆地把文字找回來。這種安心感讓您可以放心地進行更長、更複雜的口述，無需擔心靈感遺失。</p>
+                </div>
+                <div id="feature5" class="content-panel content-hidden bg-white p-8 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 text-[#A67B5B]">訓練您的專屬 AI 助理：客製化字典功能</h3>
+                    <p class="text-gray-700">總是把您的品牌名稱或專業術語辨識錯誤？透過「客製化字典」，您可以預先教會 AI 這些特定詞彙。例如，將「閱讀前哨站」或「Heptabase」加入字典後，辨識準確率幾乎達到 100%。這讓 Wispr Flow 深度融入您個人的工作情境。</p>
+                </div>
+                <div id="feature6" class="content-panel content-hidden bg-white p-8 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 text-[#A67B5B]">說出通關密語就完成：超省時的文字片段</h3>
+                    <p class="text-gray-700">這是革新效率的魔法棒。您可以預設一個簡短的「關鍵字」並綁定一段長文字（如 Email 結尾、婉拒信）。之後，只要說出關鍵字，Wispr Flow 就會自動幫您展開成完整的文字內容。動動嘴巴，繁瑣的文字工作就瞬間完成。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Workflow Transformation -->
+        <section id="workflow" class="mb-16 md:mb-20">
+             <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">我的工作流如何被徹底改變？</h2>
+             <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-lg mb-2 text-center">✍️ 撰寫文章初稿</h3>
+                    <p class="text-gray-600">直接在筆記軟體中開啟「免持模式」，用口說進行腦力激盪，把所有想到的點子、段落、句子全部說出來。這比打字快上好幾倍，更能抓住腦中稍縱即逝的靈感。</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h3 class="font-bold text-lg mb-2 text-center">🤖 與 AI 協作</h3>
+                    <p class="text-gray-600">這是我覺得最棒的應用場景。我可以直接跟 ChatGPT 或 Gemini 對話，用說的下指令、提供脈絡、修改內容。這讓 AI 協作的體驗從「打字溝通」變成了真正的「對話」。</p>
+                </div>
+             </div>
+        </section>
+
+        <!-- Pro Tip Section -->
+        <section id="pro-tip" class="mb-16 md:mb-20 bg-emerald-50 border-2 border-emerald-200 p-8 rounded-2xl">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-emerald-800">🤫 中文使用者的「隱藏版福利」</h2>
+            <p class="text-center text-emerald-700 mb-6 max-w-2xl mx-auto">免費版每月有 2,000 個「單字」額度。但系統在計算中文字數時似乎有個 Bug，會將一大段中文誤判成極少的英文字。我實測四天，口述上萬中文字，額度卻只用了兩百多。這讓免費方案幾乎可以說是「用都用不完」！</p>
+        </section>
+
+        <!-- Call to Action -->
+        <footer class="text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">誠摯推薦給每一位「知識工作者」</h2>
+            <p class="text-gray-600 max-w-3xl mx-auto mb-8">如果您每天需要處理大量文字，或頻繁使用 AI 工具，我強烈推薦您親身體驗 Wispr Flow。那種「心念一動，話語成文」的暢快感，一旦體驗過，就再也回不去了。</p>
+            <a href="#" class="inline-block bg-[#A67B5B] text-white font-bold px-8 py-3 rounded-full text-lg hover:bg-[#8e694d] transition-colors duration-300 shadow-lg">立即免費體驗 Pro 版</a>
+            <p class="text-sm text-gray-500 mt-4">目前支援 Windows, Mac, iOS (Android 開發中)</p>
+        </footer>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('efficiencyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['傳統鍵盤打字', '使用 Wispr Flow'],
+                    datasets: [{
+                        label: '相對效率',
+                        data: [1, 4],
+                        backgroundColor: [
+                            'rgba(200, 200, 200, 0.6)',
+                            'rgba(166, 123, 91, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(150, 150, 150, 1)',
+                            'rgba(166, 123, 91, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + 'x';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + ' 倍效率';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const tabs = document.querySelectorAll('.tab-button');
+            const contentPanels = document.querySelectorAll('.content-panel');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetTab = tab.dataset.tab;
+
+                    tabs.forEach(t => {
+                        t.classList.remove('tab-active');
+                        t.classList.add('tab-inactive');
+                    });
+                    tab.classList.remove('tab-inactive');
+                    tab.classList.add('tab-active');
+
+                    contentPanels.forEach(panel => {
+                        if (panel.id === targetTab) {
+                            panel.classList.remove('content-hidden');
+                            panel.classList.add('content-visible');
+                        } else {
+                            panel.classList.remove('content-visible');
+                            panel.classList.add('content-hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
