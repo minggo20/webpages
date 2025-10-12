@@ -22,3 +22,4 @@ https://minggo20.github.io/webpages/2025-08-10_01.html
 ### [02資訊圖表：NotebookLM 教育應用解析](https://minggo20.github.io/webpages/2025-08-17_02.html)
 
 ## [Wispr Flow: 一場從指尖到舌尖的革命](https://minggo20.github.io/webpages/2025-09-21_01.html)
+## [連結倒數](https://minggo20.github.io/webpages/2025-10-12_01.html)
